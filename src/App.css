@@ -754,6 +754,20 @@
   background-color: #218838;
 }
 
+.student-details .mark-fee-paid-button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.student-details .mark-fee-paid-button:hover {
+  background-color: #218838;
+}
+
 /* Responsive styles */
 @media (max-width: 600px) {
   .student-details {

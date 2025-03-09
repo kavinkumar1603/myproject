@@ -40,12 +40,6 @@ function BatchDetails() {
     setStudents(newStudents);
   };
 
-  const markFeePaid = (index) => {
-    const newStudents = [...students];
-    newStudents[index].feeStatus = 'Paid';
-    setStudents(newStudents);
-  };
-
   const removeStudent = (index) => {
     const newStudents = students.filter((_, i) => i !== index);
     setStudents(newStudents);
@@ -125,7 +119,6 @@ function BatchDetails() {
               <div className="attendance-buttons">
                 <button className="attendance-button present" onClick={() => markPresent(index)}>✔️</button>
                 <button className="attendance-button absent" onClick={() => markAbsent(index)}>❌</button>
-                <button className="attendance-button paid" onClick={() => markFeePaid(index)}>💵</button>
                 <button className="remove-button small" onClick={() => removeStudent(index)}>REMOVE</button>
               </div>
             </div>

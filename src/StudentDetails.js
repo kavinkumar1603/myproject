@@ -47,16 +47,21 @@ function StudentDetails() {
     localStorage.setItem(`students-${batchName}`, JSON.stringify(updatedStudents));
   };
 
-  const markFeePaid = () => {
+  const markFeePaid = (month) => {
     const updatedStudents = students.map(s => 
-      s.name === studentName ? { ...s, feeStatus: 'Paid' } : s
+      s.name === studentName ? { ...s, feeStatus: { ...s.feeStatus, [month]: 'Paid' } } : s
     );
     localStorage.setItem(`students-${batchName}`, JSON.stringify(updatedStudents));
   };
 
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
   return (
     <div className="student-details">
-      <img src={logo} alt="Logo" className="logo" />
+      <img src={logo} alt="Logo" className="logo" /> {/* Add logo at the top of the page */}
       <h1>{studentName}'s Details</h1>
       <div className="profile-picture">
         <img src={profilePicture || 'default-profile.png'} alt={`${studentName}'s profile`} />
@@ -79,25 +84,14 @@ function StudentDetails() {
       </div>
       <h2>Fee Status</h2>
       <div className="fee-status">
-        <div className={`month-status ${student.feeStatus === 'Unpaid' ? 'unpaid' : ''}`}>
-          <span>March</span>
-          <span>{student.feeStatus || 'Unpaid'}</span>
-        </div>
-        <div className={`month-status ${student.feeStatus === 'Unpaid' ? 'unpaid' : ''}`}>
-          <span>February</span>
-          <span>{student.feeStatus || 'Unpaid'}</span>
-        </div>
-        <div className={`month-status ${student.feeStatus === 'Unpaid' ? 'unpaid' : ''}`}>
-          <span>January</span>
-          <span>{student.feeStatus || 'Unpaid'}</span>
-        </div>
-        <div className={`month-status ${student.feeStatus === 'Unpaid' ? 'unpaid' : ''}`}>
-          <span>December</span>
-          <span>{student.feeStatus || 'Unpaid'}</span>
-        </div>
+        {months.map(month => (
+          <div key={month} className={`month-status ${student.feeStatus[month] === 'Unpaid' ? 'unpaid' : ''}`}>
+            <span>{month}</span>
+            <button className="mark-fee-paid-button" onClick={() => markFeePaid(month)}>Mark Fee as Paid</button>
+          </div>
+        ))}
       </div>
       <button className="attendance-summary-button" onClick={handleAttendanceSummary}>Attendance Summary</button>
-      <button className="mark-fee-paid-button" onClick={markFeePaid}>Mark Fee as Paid</button>
     </div>
   );
 }
