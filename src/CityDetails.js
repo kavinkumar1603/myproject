@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './App.css';
 import logo from './assests/logo.png'; // Correct the path to the logo image
 
-function NextPage() {
-  const [cities, setCities] = useState(['Coimbatore', 'Erode', 'Salem', 'Tiruppur']);
-  const [newCity, setNewCity] = useState('');
+function CityDetails() {
+  const { cityName } = useParams();
+  const [batches, setBatches] = useState(['Batch 1', 'Batch 2', 'Batch 3', 'Batch 4']);
+  const [newBatch, setNewBatch] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
 
   const handleAddNew = () => {
-    if (newCity) {
-      setCities([...cities, newCity]);
-      setNewCity('');
+    if (newBatch) {
+      setBatches([...batches, newBatch]);
+      setNewBatch('');
       setShowPopup(false);
     }
   };
@@ -24,21 +25,21 @@ function NextPage() {
 
   const handleClosePopup = () => {
     setShowPopup(false);
-    setNewCity('');
+    setNewBatch('');
   };
 
-  const handleCityClick = (city) => {
-    navigate(`/city/${city}`);
+  const handleBatchClick = (batch) => {
+    navigate(`/batch/${batch}`);
   };
 
-  const filteredCities = cities.filter(city =>
-    city.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredBatches = batches.filter(batch =>
+    batch.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div className="next-page">
+    <div className="city-details">
       <img src={logo} alt="Logo" className="logo" />
-      <p>A Traditional Spiritual Experience</p>
+      <h1>{cityName}</h1>
       <div className="search-container">
         <input
           type="text"
@@ -49,9 +50,9 @@ function NextPage() {
         />
         <button className="search-button">🔍</button>
       </div>
-      <div className="locations">
-        {filteredCities.map((city, index) => (
-          <button key={index} onClick={() => handleCityClick(city)}>{city}</button>
+      <div className="batches">
+        {filteredBatches.map((batch, index) => (
+          <button key={index} onClick={() => handleBatchClick(batch)}>{batch}</button>
         ))}
       </div>
       <button className="add-new" onClick={handleShowPopup}>+ Add New</button>
@@ -59,12 +60,12 @@ function NextPage() {
       {showPopup && (
         <div className="popup">
           <div className="popup-content">
-            <h3>Add a New City</h3>
+            <h3>Add a New Batch</h3>
             <input
               type="text"
-              placeholder="Enter new city"
-              value={newCity}
-              onChange={(e) => setNewCity(e.target.value)}
+              placeholder="Enter new batch"
+              value={newBatch}
+              onChange={(e) => setNewBatch(e.target.value)}
               className="new-city-input"
             />
             <button onClick={handleAddNew}>Add</button>
@@ -76,4 +77,4 @@ function NextPage() {
   );
 }
 
-export default NextPage;
+export default CityDetails;
