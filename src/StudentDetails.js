@@ -47,6 +47,13 @@ function StudentDetails() {
     localStorage.setItem(`students-${batchName}`, JSON.stringify(updatedStudents));
   };
 
+  const markFeePaid = () => {
+    const updatedStudents = students.map(s => 
+      s.name === studentName ? { ...s, feeStatus: 'Paid' } : s
+    );
+    localStorage.setItem(`students-${batchName}`, JSON.stringify(updatedStudents));
+  };
+
   return (
     <div className="student-details">
       <img src={logo} alt="Logo" className="logo" />
@@ -90,6 +97,7 @@ function StudentDetails() {
         </div>
       </div>
       <button className="attendance-summary-button" onClick={handleAttendanceSummary}>Attendance Summary</button>
+      <button className="mark-fee-paid-button" onClick={markFeePaid}>Mark Fee as Paid</button>
     </div>
   );
 }

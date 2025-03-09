@@ -632,6 +632,10 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 600px;
   margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .student-details .logo {
@@ -683,7 +687,7 @@
   border: none;
   cursor: pointer;
   font-size: 1rem;
-  color: red;
+  color: #db4437;
   display: block;
   margin: 10px auto 0;
   background-color: #f8d7da;
@@ -704,6 +708,7 @@
   text-align: left;
   margin: 0 auto;
   max-width: 400px;
+  width: 100%;
 }
 
 .student-details .month-status {
@@ -714,9 +719,11 @@
 }
 
 .student-details .month-status.unpaid {
-  background-color: #ff0000;
-  border: 1px solid #ff0000;
-  color: white;
+  background-color: #db4437;
+  /*border: 1px solid #ff0000;*/
+  color: rgb(0, 0, 0);
+  background-color: #ddd;
+  font-style: weight;
 }
 
 .student-details .attendance-summary-button {
@@ -730,7 +737,21 @@
 }
 
 .student-details .attendance-summary-button:hover {
-  background-color: #0056b3;
+  background-color: #db4437;
+}
+
+.student-details .mark-fee-paid-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.student-details .mark-fee-paid-button:hover {
+  background-color: #218838;
 }
 
 /* Responsive styles */
@@ -738,6 +759,7 @@
   .student-details {
     padding: 10px;
     margin: 10px;
+    max-width: 100%;
   }
 
   .student-details h1 {
