@@ -811,7 +811,7 @@
 }
 
 /* Responsive styles */
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .student-details {
     padding: 10px;
     margin: 10px;
