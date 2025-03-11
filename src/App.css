@@ -850,3 +850,171 @@
     font-size: 14px;
   }
 }
+
+/* Responsive styles for mobile devices */
+@media (max-width: 600px) {
+  .App {
+    flex-direction: column;
+    padding: 0.5rem;
+  }
+
+  .login-container {
+    padding: 1rem;
+    max-width: 100%;
+  }
+
+  .next-page .logo,
+  .city-details .logo,
+  .batch-details .logo,
+  .student-details .logo {
+    width: 150px; /* Adjust the width for smaller screens */
+  }
+
+  .next-page h1,
+  .city-details h1,
+  .batch-details h1,
+  .student-details h1 {
+    font-size: 1.5rem;
+  }
+
+  .next-page p,
+  .city-details p,
+  .batch-details h2,
+  .student-details h2 {
+    font-size: 1rem;
+  }
+
+  .next-page .search-container,
+  .city-details .search-container,
+  .batch-details .search-container {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  .next-page .search-bar,
+  .city-details .search-bar,
+  .batch-details .search-bar {
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+
+  .next-page .search-button,
+  .city-details .search-button,
+  .batch-details .search-button {
+    border-radius: 4px;
+  }
+
+  .next-page .locations,
+  .city-details .batches,
+  .city-details .attendances,
+  .batch-details .student-list,
+  .student-details .fee-status {
+    max-width: 100%;
+  }
+
+  .next-page .locations button,
+  .city-details .batches button,
+  .city-details .attendances button,
+  .batch-details .student-item,
+  .student-details .month-status {
+    font-size: 0.9rem;
+  }
+
+  .next-page .add-new,
+  .city-details .add-new,
+  .batch-details .add-new,
+  .student-details .attendance-summary-button,
+  .student-details .mark-fee-paid-button {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+
+  .popup-content {
+    padding: 1rem;
+  }
+
+  .popup-content h3 {
+    font-size: 1.2rem;
+  }
+
+  .popup-content button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .popup-content .similar-batches div {
+    font-size: 0.9rem;
+  }
+}
+
+/* Responsive styles for slightly larger screens */
+@media (min-width: 601px) and (max-width: 900px) {
+  .next-page .logo,
+  .city-details .logo,
+  .batch-details .logo,
+  .student-details .logo {
+    width: 180px; /* Adjust the width for slightly larger screens */
+  }
+
+  .next-page h1,
+  .city-details h1,
+  .batch-details h1,
+  .student-details h1 {
+    font-size: 1.8rem;
+  }
+
+  .next-page p,
+  .city-details p,
+  .batch-details h2,
+  .student-details h2 {
+    font-size: 1.1rem;
+  }
+
+  .next-page .search-container,
+  .city-details .search-container,
+  .batch-details .search-container {
+    max-width: 90%;
+  }
+
+  .next-page .locations,
+  .city-details .batches,
+  .city-details .attendances,
+  .batch-details .student-list,
+  .student-details .fee-status {
+    max-width: 90%;
+  }
+
+  .next-page .locations button,
+  .city-details .batches button,
+  .city-details .attendances button,
+  .batch-details .student-item,
+  .student-details .month-status {
+    font-size: 1rem;
+  }
+
+  .next-page .add-new,
+  .city-details .add-new,
+  .batch-details .add-new,
+  .student-details .attendance-summary-button,
+  .student-details .mark-fee-paid-button {
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+
+  .popup-content {
+    padding: 1.5rem;
+  }
+
+  .popup-content h3 {
+    font-size: 1.4rem;
+  }
+
+  .popup-content button {
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .popup-content .similar-batches div {
+    font-size: 1rem;
+  }
+}
