@@ -6,15 +6,26 @@ import logo from './assests/logo.png'; // Correct the path to the logo image
 function StudentDetails() {
   const { batchName, studentName } = useParams();
   const navigate = useNavigate();
-  const students = JSON.parse(localStorage.getItem(`students-${batchName}`));
-  const student = students ? students.find(s => s.name === studentName) : null;
-  const [profilePicture, setProfilePicture] = useState(student ? student.profilePicture : null);
+  const [student, setStudent] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(null);
+  const [feeStatus, setFeeStatus] = useState({});
+  const [attendanceSummary, setAttendanceSummary] = useState([]);
+  const [students, setStudents] = useState([]);
 
   useEffect(() => {
-    if (student) {
-      setProfilePicture(student.profilePicture);
+    const savedStudents = localStorage.getItem(`students-${batchName}`);
+    if (savedStudents) {
+      const students = JSON.parse(savedStudents);
+      setStudents(students);
+      const foundStudent = students.find(s => s.name === studentName);
+      setStudent(foundStudent);
+      if (foundStudent) {
+        setProfilePicture(foundStudent.profilePicture || null);
+        setFeeStatus(foundStudent.feeStatus || {});
+        setAttendanceSummary(foundStudent.attendance || []); // Ensure attendance is set
+      }
     }
-  }, [student]);
+  }, [batchName, studentName]);
 
   if (!student) {
     return <div>Student not found</div>;
@@ -47,9 +58,13 @@ function StudentDetails() {
     localStorage.setItem(`students-${batchName}`, JSON.stringify(updatedStudents));
   };
 
-  const markFeePaid = (month) => {
+  const toggleFeeStatus = (month) => {
+    const newStatus = feeStatus[month] === 'Paid' ? 'Unpaid' : 'Paid';
+    const updatedFeeStatus = { ...feeStatus, [month]: newStatus };
+    setFeeStatus(updatedFeeStatus);
+
     const updatedStudents = students.map(s => 
-      s.name === studentName ? { ...s, feeStatus: { ...s.feeStatus, [month]: 'Paid' } } : s
+      s.name === studentName ? { ...s, feeStatus: updatedFeeStatus } : s
     );
     localStorage.setItem(`students-${batchName}`, JSON.stringify(updatedStudents));
   };
@@ -61,7 +76,7 @@ function StudentDetails() {
 
   return (
     <div className="student-details">
-      <img src={logo} alt="Logo" className="logo" /> {/* Add logo at the top of the page */}
+      <img src={logo} alt="Logo" className="logo" /> 
       <h1>{studentName}'s Details</h1>
       <div className="profile-picture">
         <img src={profilePicture || 'default-profile.png'} alt={`${studentName}'s profile`} />
@@ -70,7 +85,7 @@ function StudentDetails() {
         ) : (
           <>
             <label htmlFor="profile-picture-input" className="choose-photo-label">
-              <span>Choose Photo</span> <span className="plus-icon">+</span>
+              <span>Choose Photo</span> 
             </label>
             <input 
               type="file" 
@@ -85,9 +100,14 @@ function StudentDetails() {
       <h2>Fee Status</h2>
       <div className="fee-status">
         {months.map(month => (
-          <div key={month} className={`month-status ${student.feeStatus[month] === 'Unpaid' ? 'unpaid' : ''}`}>
+          <div key={month} className="month-status">
             <span>{month}</span>
-            <button className="mark-fee-paid-button" onClick={() => markFeePaid(month)}>Mark Fee as Paid</button>
+            <button 
+              className={feeStatus[month] === 'Paid' ? 'paid-button' : 'unpaid-button'} 
+              onClick={() => toggleFeeStatus(month)}
+            >
+              {feeStatus[month] === 'Paid' ? 'Paid' : 'Unpaid'}
+            </button>
           </div>
         ))}
       </div>

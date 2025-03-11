@@ -9,13 +9,13 @@ function BatchDetails() {
   const [students, setStudents] = useState(() => {
     const savedStudents = localStorage.getItem(`students-${batchName}`);
     return savedStudents ? JSON.parse(savedStudents) : [
-      { name: 'Praveen', present: true, dateJoined: new Date('2023-01-01'), profilePicture: null, feeStatus: 'Unpaid' },
-      { name: 'Surya', present: true, dateJoined: new Date('2023-02-01'), profilePicture: null, feeStatus: 'Unpaid' },
-      { name: 'Srinisha', present: true, dateJoined: new Date('2023-03-01'), profilePicture: null, feeStatus: 'Unpaid' },
-      { name: 'Manish', present: true, dateJoined: new Date('2023-04-01'), profilePicture: null, feeStatus: 'Unpaid' },
-      { name: 'Kavin Kumar', present: true, dateJoined: new Date('2023-05-01'), profilePicture: null, feeStatus: 'Unpaid' },
-      { name: 'Vijay', present: true, dateJoined: new Date('2023-06-01'), profilePicture: null, feeStatus: 'Unpaid' },
-      { name: 'Karthick', present: true, dateJoined: new Date('2023-07-01'), profilePicture: null, feeStatus: 'Unpaid' },
+      { name: 'Praveen', present: true, dateJoined: new Date('2023-01-01'), profilePicture: null, feeStatus: 'Unpaid', attendance: [] },
+      { name: 'Surya', present: true, dateJoined: new Date('2023-02-01'), profilePicture: null, feeStatus: 'Unpaid', attendance: [] },
+      { name: 'Srinisha', present: true, dateJoined: new Date('2023-03-01'), profilePicture: null, feeStatus: 'Unpaid', attendance: [] },
+      { name: 'Manish', present: true, dateJoined: new Date('2023-04-01'), profilePicture: null, feeStatus: 'Unpaid', attendance: [] },
+      { name: 'Kavin Kumar', present: true, dateJoined: new Date('2023-05-01'), profilePicture: null, feeStatus: 'Unpaid', attendance: [] },
+      { name: 'Vijay', present: true, dateJoined: new Date('2023-06-01'), profilePicture: null, feeStatus: 'Unpaid', attendance: [] },
+      { name: 'Karthick', present: true, dateJoined: new Date('2023-07-01'), profilePicture: null, feeStatus: 'Unpaid', attendance: [] },
     ];
   });
   const [newStudent, setNewStudent] = useState('');
@@ -30,13 +30,31 @@ function BatchDetails() {
 
   const markPresent = (index) => {
     const newStudents = [...students];
+    if (!newStudents[index].attendance) {
+      newStudents[index].attendance = [];
+    }
     newStudents[index].present = true;
+    const date = new Date();
+    newStudents[index].attendance.push({
+      date: date.toLocaleDateString(),
+      time: date.toLocaleTimeString(),
+      status: 'Present'
+    });
     setStudents(newStudents);
   };
 
   const markAbsent = (index) => {
     const newStudents = [...students];
+    if (!newStudents[index].attendance) {
+      newStudents[index].attendance = [];
+    }
     newStudents[index].present = false;
+    const date = new Date();
+    newStudents[index].attendance.push({
+      date: date.toLocaleDateString(),
+      time: date.toLocaleTimeString(),
+      status: 'Absent'
+    });
     setStudents(newStudents);
   };
 
@@ -47,7 +65,7 @@ function BatchDetails() {
 
   const handleAddNew = () => {
     if (newStudent) {
-      setStudents([...students, { name: newStudent, present: true, dateJoined: new Date(), profilePicture: null, feeStatus: 'Unpaid' }]);
+      setStudents([...students, { name: newStudent, present: true, dateJoined: new Date(), profilePicture: null, feeStatus: 'Unpaid', attendance: [] }]);
       setNewStudent('');
       setShowPopup(false);
     }
