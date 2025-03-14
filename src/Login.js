@@ -1,13 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
 
 function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate('/next');
+    let valid = true;
+    if (!validateEmail(email)) {
+      setEmailError('Invalid email format');
+      valid = false;
+    } else {
+      setEmailError('');
+    }
+    if (password.length < 5) {
+      setPasswordError('Password must be at least 5 characters long');
+      valid = false;
+    } else {
+      setPasswordError('');
+    }
+    if (valid) {
+      navigate('/next');
+    }
+  };
+
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
   };
 
   return (
@@ -15,8 +39,20 @@ function Login() {
       <h2>Login</h2>
       <p>Enter your email and password to log in</p>
       <form onSubmit={handleSubmit}>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        {emailError && <p className="error">{emailError}</p>}
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {passwordError && <p className="error">{passwordError}</p>}
         <div className="remember-forgot">
           <label>
             <input type="checkbox" /> Remember me

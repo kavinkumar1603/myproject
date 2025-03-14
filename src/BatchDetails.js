@@ -10,12 +10,12 @@ function BatchDetails() {
     const savedStudents = localStorage.getItem(`students-${batchName}`);
     return savedStudents ? JSON.parse(savedStudents) : [
       { name: 'Praveen', present: true, dateJoined: new Date('2023-01-01'), profilePicture: null, feeStatus: 'Unpaid', attendance: [] },
-      { name: 'Surya', present: true, dateJoined: new Date('2023-02-01'), profilePicture: null, feeStatus: 'Unpaid', attendance: [] },
-      { name: 'Srinisha', present: true, dateJoined: new Date('2023-03-01'), profilePicture: null, feeStatus: 'Unpaid', attendance: [] },
-      { name: 'Manish', present: true, dateJoined: new Date('2023-04-01'), profilePicture: null, feeStatus: 'Unpaid', attendance: [] },
+      { name: 'Keerthi', present: true, dateJoined: new Date('2023-02-01'), profilePicture: null, feeStatus: 'Unpaid', attendance: [] },
+      { name: 'Manish Prakkash', present: true, dateJoined: new Date('2023-03-01'), profilePicture: null, feeStatus: 'Unpaid', attendance: [] },
+      { name: 'Kavin prakash', present: true, dateJoined: new Date('2023-04-01'), profilePicture: null, feeStatus: 'Unpaid', attendance: [] },
       { name: 'Kavin Kumar', present: true, dateJoined: new Date('2023-05-01'), profilePicture: null, feeStatus: 'Unpaid', attendance: [] },
       { name: 'Vijay', present: true, dateJoined: new Date('2023-06-01'), profilePicture: null, feeStatus: 'Unpaid', attendance: [] },
-      { name: 'Karthick', present: true, dateJoined: new Date('2023-07-01'), profilePicture: null, feeStatus: 'Unpaid', attendance: [] },
+      { name: 'Ilam', present: true, dateJoined: new Date('2023-07-01'), profilePicture: null, feeStatus: 'Unpaid', attendance: [] },
     ];
   });
   const [newStudent, setNewStudent] = useState('');

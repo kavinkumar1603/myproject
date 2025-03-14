@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
-import logo from './assests/logo.png'; // Correct the path to the logo image
-
+import logo from './assests/logo.png';
 function NextPage() {
-  const [cities, setCities] = useState(['Coimbatore', 'Erode', 'Salem', 'Tiruppur']);
+  const [cities, setCities] = useState(() => {
+    const savedCities = localStorage.getItem('cities');
+    return savedCities ? JSON.parse(savedCities) : ['Coimbatore', 'Erode', 'Salem', 'Tiruppur'];
+  });
   const [newCity, setNewCity] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.setItem('cities', JSON.stringify(cities));
+  }, [cities]);
 
   const handleAddNew = () => {
     if (newCity) {
