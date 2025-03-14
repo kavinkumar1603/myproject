@@ -51,7 +51,7 @@ function NextPage() {
           placeholder="Search"
           className="search-bar"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => setSearchTerm(e.target.value.toLowerCase())}
         />
         <button className="search-button">🔍</button>
       </div>

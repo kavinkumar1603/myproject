@@ -1,21 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './App.css';
 import logo from './assests/logo.png'; // Correct the path to the logo image
 
 function CityDetails() {
   const { cityName } = useParams();
-  const [batches, setBatches] = useState(['Batch 1', 'Batch 2', 'Batch 3', 'Batch 4']);
+  const [batches, setBatches] = useState(() => {
+    const savedBatches = localStorage.getItem(`batches-${cityName}`);
+    return savedBatches ? JSON.parse(savedBatches) : ['Batch 1', 'Batch 2', 'Batch 3', 'Batch 4'];
+  });
   const [newBatch, setNewBatch] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [showPopup, setShowPopup] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  useEffect(() => {
+    localStorage.setItem(`batches-${cityName}`, JSON.stringify(batches));
+  }, [batches, cityName]);
+
   const handleAddNew = () => {
+    if (batches.map(batch => batch.toLowerCase()).includes(newBatch.toLowerCase())) {
+      setError('Batch already exists');
+      return;
+    }
     if (newBatch) {
       setBatches([...batches, newBatch]);
       setNewBatch('');
       setShowPopup(false);
+      setError('');
     }
   };
 
@@ -26,6 +39,7 @@ function CityDetails() {
   const handleClosePopup = () => {
     setShowPopup(false);
     setNewBatch('');
+    setError('');
   };
 
   const handleBatchClick = (batch) => {
@@ -46,7 +60,7 @@ function CityDetails() {
           placeholder="Search"
           className="search-bar"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => setSearchTerm(e.target.value.toLowerCase())}
         />
         <button className="search-button">🔍</button>
       </div>
@@ -68,6 +82,7 @@ function CityDetails() {
               onChange={(e) => setNewBatch(e.target.value)}
               className="new-city-input"
             />
+            {error && <p className="error">{error}</p>}
             <button onClick={handleAddNew}>Add</button>
             <button onClick={handleClosePopup}>Cancel</button>
           </div>
